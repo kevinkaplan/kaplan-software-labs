@@ -2,23 +2,44 @@
 
 Landing page for Dojo early access signup.
 
-## Save Signup Emails To Google Sheets
+## Save Signup Emails And Beta Feedback To Google Sheets
 
-1. Create a Google Sheet with a tab named `Signups`.
+1. Create a Google Sheet with tabs named `Signups` and `Feedback`.
 2. In that Sheet, go to `Extensions -> Apps Script`.
 3. Replace the default code with:
 
 ```javascript
 function doPost(e) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Signups');
-  if (!sheet) {
-    sheet = SpreadsheetApp.getActiveSpreadsheet().insertSheet('Signups');
-    sheet.appendRow(['Timestamp', 'Email', 'Source']);
-  }
-
   var payload = JSON.parse(e.postData.contents || '{}');
+  var entryType = (payload.entryType || 'signup').toString().trim().toLowerCase();
   var email = (payload.email || '').toString().trim();
   var source = (payload.source || 'website').toString().trim();
+  var feedback = (payload.feedback || '').toString().trim();
+
+  if (entryType === 'feedback') {
+    var feedbackSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Feedback');
+    if (!feedbackSheet) {
+      feedbackSheet = SpreadsheetApp.getActiveSpreadsheet().insertSheet('Feedback');
+      feedbackSheet.appendRow(['Timestamp', 'Email', 'Feedback', 'Source']);
+    }
+
+    if (!feedback) {
+      return ContentService
+        .createTextOutput(JSON.stringify({ ok: false, error: 'missing-feedback' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    feedbackSheet.appendRow([new Date(), email, feedback, source]);
+    return ContentService
+      .createTextOutput(JSON.stringify({ ok: true }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  var signupSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Signups');
+  if (!signupSheet) {
+    signupSheet = SpreadsheetApp.getActiveSpreadsheet().insertSheet('Signups');
+    signupSheet.appendRow(['Timestamp', 'Email', 'Source']);
+  }
 
   if (!email) {
     return ContentService
@@ -26,7 +47,7 @@ function doPost(e) {
       .setMimeType(ContentService.MimeType.JSON);
   }
 
-  sheet.appendRow([new Date(), email, source]);
+  signupSheet.appendRow([new Date(), email, source]);
 
   return ContentService
     .createTextOutput(JSON.stringify({ ok: true }))
@@ -46,6 +67,7 @@ const SHEETS_WEBHOOK_URL = 'YOUR_WEB_APP_URL_HERE';
 ```
 
 After that, each successful signup is appended to your `Signups` sheet.
+Submissions from `kaplansoftwarelabs.com/beta-feedback` are appended to your `Feedback` sheet.
 
 ## Free Hosting On GitHub Pages + Custom Domain
 

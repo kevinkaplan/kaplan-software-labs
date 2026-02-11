@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kaplan Software Labs | Beta Feedback</title>
+    <meta
+      name="description"
+      content="Share Dojo beta feedback with Kaplan Software Labs."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="background-glow" aria-hidden="true"></div>
+    <main class="shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Kaplan Software Labs home">
+          <img class="brand-logo" src="./kaplan_software_labs_logo.png" alt="Kaplan Software Labs" />
+        </a>
+      </header>
+
+      <section class="content">
+        <h1>Beta Feedback</h1>
+        <p class="lead">
+          Thanks for testing Dojo. Share anything that would make the app better.
+        </p>
+
+        <form class="feedback-form" data-feedback-form>
+          <label for="feedback-email">Email (optional)</label>
+          <input
+            id="feedback-email"
+            name="email"
+            type="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+          />
+
+          <label for="feedback-message">Your feedback</label>
+          <textarea
+            id="feedback-message"
+            name="feedback"
+            placeholder="Tell us what worked, what was confusing, and what you'd change."
+            required
+          ></textarea>
+
+          <button type="submit">Submit Feedback</button>
+        </form>
+
+        <p class="feedback" data-feedback-message aria-live="polite"></p>
+      </section>
+
+      <footer class="footer">
+        <p>© 2026 | Kaplan Software Labs. All rights reserved.</p>
+      </footer>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

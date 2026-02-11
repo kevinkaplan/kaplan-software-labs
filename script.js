@@ -1,4 +1,4 @@
-const SHEETS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzC0XjekcyHA_lnJYEbfr76YC58ywlw7crphv2dHgNz4vcoPaYoiRaDLL9tFXtHFxDA/exec';
+const SHEETS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycby1Afw6SyQfKIs7JssLGxyXXP3xW4pZw1iuJaW28lyq5Cq9fcAk0zwb3JaOKlHzQAkQ/exec';
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const forms = document.querySelectorAll('[data-signup]');
 

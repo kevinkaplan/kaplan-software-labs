@@ -28,7 +28,7 @@ body {
     radial-gradient(900px 550px at 75% 12%, rgba(60, 169, 255, 0.23), transparent 65%),
     radial-gradient(820px 520px at 8% 82%, rgba(24, 81, 204, 0.24), transparent 68%),
     linear-gradient(145deg, #01040c 0%, var(--bg-mid) 50%, #010510 100%);
-  padding: 22px 14px;
+  padding: 28px 18px;
 }
 
 .background-glow {
@@ -42,7 +42,7 @@ body {
 }
 
 .shell {
-  width: min(930px, 100%);
+  width: min(1120px, 100%);
   margin: 0 auto;
   border: 1px solid rgba(166, 210, 255, 0.2);
   border-radius: 20px;
@@ -53,7 +53,11 @@ body {
 }
 
 .topbar {
-  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 20px 34px;
   border-bottom: 1px solid var(--line);
   background: linear-gradient(180deg, rgba(21, 44, 81, 0.36), rgba(3, 12, 27, 0.56));
 }
@@ -69,8 +73,42 @@ body {
   filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35));
 }
 
+.top-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.top-action {
+  text-decoration: none;
+  color: #d8edff;
+  border: 1px solid rgba(144, 201, 255, 0.34);
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  background: linear-gradient(180deg, rgba(16, 37, 72, 0.62), rgba(7, 18, 41, 0.72));
+  transition: transform 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.top-action:hover,
+.top-action:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(186, 228, 255, 0.7);
+  color: #f6fbff;
+}
+
+.top-action--active {
+  color: #ffffff;
+  border-color: rgba(201, 234, 255, 0.82);
+  background: linear-gradient(180deg, rgba(38, 99, 196, 0.76), rgba(18, 57, 130, 0.86));
+  pointer-events: none;
+}
+
 .content {
-  padding: clamp(22px, 4vw, 50px);
+  padding-inline: clamp(18px, 4vw, 64px);
+  padding-block: clamp(22px, 4vw, 50px);
 }
 
 h1 {
@@ -169,17 +207,24 @@ h1 {
   font-size: 0.95rem;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 620px) {
   body {
     padding: 10px;
   }
 
   .topbar {
-    padding: 14px 16px;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 16px;
   }
 
   .content {
     padding: 20px 16px;
+  }
+
+  .top-actions {
+    justify-content: center;
+    flex-wrap: wrap;
   }
 
   .feedback-form button {
